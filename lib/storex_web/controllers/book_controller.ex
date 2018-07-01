@@ -6,14 +6,7 @@ defmodule StorexWeb.BookController do
   end
 
   def show(conn, %{"id" => book_id}) do
-    book = %{
-      id: "1",
-      title: "My first book",
-      description: "My first story",
-      price: "15.9",
-      image_url: "http://www.phoenixforrailsdevelopers.com/books/1.png"
-    }
-
+    book = get_book(book_id)
     render conn, "show.html", book: book
   end
 
@@ -51,5 +44,9 @@ defmodule StorexWeb.BookController do
         image_url: "http://www.phoenixforrailsdevelopers.com/books/4.png"
       }
     ]
+  end
+
+  def get_book(id) do
+    Enum.find(list_books(), fn(book) -> book.id == id end)
   end
 end
